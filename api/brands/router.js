@@ -6,7 +6,7 @@ const { getAllBrands, getBrandByID, getBrandByName, createBrand, updateBrand, de
 router.get ('/get-all-brands', getAllBrands )
 router.get ('/get-brand-by-id', getBrandByID )
 router.get ('/get-brand-by-name', getBrandByName )
-router.post ('/create-brand', createBrand )
+router.post ('/add-brand', createBrand )
 router.put ('/update-brand', updateBrand )
 router.delete ('/delete-brand', deleteBrand )
 

@@ -12,6 +12,11 @@ const ProductSchema = new Schema(
             type: String,
             required: true
         },
+
+        Stock: {
+            type: String,
+            required: true
+        },
         
         ProductCategory : {
             type: String ,

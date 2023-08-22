@@ -19,6 +19,8 @@ app.use ('/api' , require('./api/users/router'))
 app.use('/api', BrandRouter)
 app.use('/api', CategoryRouter)
 app.use('/api', ProductRouter)
+app.use('/api', require('./api/mailer/router'))
+app.use('/api', require('./api/orders/router'))
 
 
 app.get('/', (req, res) => {

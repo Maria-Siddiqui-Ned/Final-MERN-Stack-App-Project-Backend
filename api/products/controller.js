@@ -42,6 +42,18 @@ const getProductByID = async (req, res) => {
 
 }
 
+// from sir repo
+// const getProductByID= async (req, res) => {
+//     const { _id } = req.params
+//     if (!_id) {
+//         res.status(403).json({ message: "Please Give Product id" })
+//     }
+//     else {
+//         await connect(process.env.MONGO_URI)
+//         const products = await Products.findOne({ _id })
+//         res.json({ products })
+//     }
+// }
 //getProductByCategory
 const getProductByCategory = async (req, res) => {
 
@@ -68,13 +80,21 @@ const getProductByBrand = async (req, res) => {
 
     try {
         await connect(process.env.MONGO_URL)
-        const product = await Product.find({ ProductBrand})
-        res.json({ product })
+        console.log(connect)
+        const products = await Product.find({ ProductBrand})
+        if(products === null){
+            console.log("Not exist")
+        }
+        else{
+        res.json({ products })
+        }
     }
 
     catch (error) {
         res.status(400).json({
-            message: error.message
+            message: console.log(error.message)
+            
+
         })
     }
 
@@ -83,27 +103,27 @@ const getProductByBrand = async (req, res) => {
 
 //createProduct
 const createProduct = async (req, res) => {
-    const { ProductName, ProductPrice, ProductCategory,  ProductBrand ,ProductThumbnail,ProductImageArray, ProductDescription } = req.body
+    const { ProductName, ProductPrice, Stock, ProductCategory,  ProductBrand ,ProductThumbnail,ProductImageArray, ProductDescription } = req.body
 
-    if (!ProductName || !ProductPrice || !ProductCategory ||  !ProductBrand || !ProductThumbnail || !ProductImageArray || !ProductDescription) {
-        res.status(403).json({
-            message: "Missing Required Field"
-        })
-    }
+    // if (!ProductName || !ProductPrice || Stock || !ProductCategory ||  !ProductBrand || !ProductThumbnail || !ProductImageArray || !ProductDescription) {
+    //     res.status(403).json({
+    //         message: "Missing Required Field"
+    //     })
+    // }
 
-    else {
+    // else {
         try {
             await connect(process.env.MONGO_URL)
             const checkExisting = await Product.exists({ ProductName })
 
-            if (checkExisting) {
-                res.status(400).json({
-                    message: "Product Already Exists"
-                })
-            }
+            // if (checkExisting) {
+            //     res.status(400).json({
+            //         message: "Product Already Exists"
+            //     })
+            // }
 
-            else {
-                await Product.create({ ProductName, ProductPrice, ProductCategory,  ProductBrand ,ProductThumbnail,ProductImageArray, ProductDescription })
+            // else {
+                await Product.create({ ProductName, ProductPrice, Stock, ProductCategory,  ProductBrand ,ProductThumbnail,ProductImageArray, ProductDescription })
                 const allProducts = await Product.find()
 
                 res.json({
@@ -111,13 +131,13 @@ const createProduct = async (req, res) => {
                     products: allProducts
                 })
 
-            }
+            // }
         }
         catch (error) {
             res.status(400).json({
                 message: error.message
             })
-        }
+        // }
     }
 }
 
@@ -127,7 +147,7 @@ const updateProduct = async (req, res) => {
     const { _id, ProductName, ProductPrice, ProductCategory,  ProductBrand ,ProductThumbnail,ProductImageArray, ProductDescription } = req.body
 
     const filter = { _id };
-    const update = {  ProductName, ProductPrice, ProductCategory,  ProductBrand ,ProductThumbnail,ProductImageArray, ProductDescription };
+    const update = {  ProductName, ProductPrice, Stock, ProductCategory,  ProductBrand ,ProductThumbnail,ProductImageArray, ProductDescription };
 
     try {
         await connect(process.env.MONGO_URL)

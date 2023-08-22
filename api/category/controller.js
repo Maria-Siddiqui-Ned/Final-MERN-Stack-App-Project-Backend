@@ -24,6 +24,10 @@ const getAllCategories = async (req, res) => {
 }
 
 //get Category By ID
+// check using this url 
+// localhost:1234/api/get-category-by-id?_id=64c972bf61d58247962d487f
+
+
 const getCategoryByID = async (req, res) => {
 
     const { _id } = req.query

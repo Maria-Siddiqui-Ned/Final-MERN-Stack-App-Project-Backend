@@ -3,7 +3,7 @@ const { connect } = require('mongoose')
 require('dotenv').config()
 
 
-// get All Categories
+// get All Brands
 const getAllBrands = async (req, res) => {
 
     try {
@@ -65,7 +65,7 @@ const getBrandByName = async (req, res) => {
 const createBrand = async (req, res) => {
     const { BrandName, BrandCategory, BrandImage } = req.body
 
-    if (!BrandName || !BrandCategory || BrandImage) {
+    if (!BrandName || !BrandCategory || !BrandImage) {
         res.status(403).json({
             message: "Missing Required Field"
         })
@@ -74,24 +74,25 @@ const createBrand = async (req, res) => {
     else {
         try {
             await connect(process.env.MONGO_URL)
-            const checkExisting = await Brand.exists({ BrandName })
+            // const checkExisting = await Brand.exists({ BrandName })
 
-            if (checkExisting) {
-                res.status(400).json({
-                    message: "Brand Already Exists"
-                })
-            }
+            // if (checkExisting) {
+            //     res.alert ("Brand Already Exists").status(400).json({
+            //         message: "Brand Already Exists"
+                    
+            //     })
+            // }
 
-            else {
+            // else {
                 await Brand.create({ BrandName, BrandCategory, BrandImage })
                 const allBrands = await Brand.find()
-
                 res.json({
                     message: "Brand Created",
                     brand : allBrands
-                })
+                }
+                )
 
-            }
+            // }
         }
 
         catch (error) {
@@ -101,7 +102,6 @@ const createBrand = async (req, res) => {
         }
     }
 }
-
 
 //update Brand 
 const updateBrand = async (req, res) => {

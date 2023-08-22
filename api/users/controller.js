@@ -6,9 +6,9 @@ const {sign} = require ('jsonwebtoken')
 
 //signup
 const signup = async (req, res) => {
-    const { username, email, password } = req.body;
+    const { firstname, lastname, city, area, email, password } = req.body;
 
-    if (!username || !email || !password) {
+    if (!firstname || !lastname || !city || !area || !email || !password) {
         res.status(403).json({
             message: "Missing Required Field"
         })
@@ -29,7 +29,7 @@ const signup = async (req, res) => {
             }
     
             else {
-                await User.create({ username, email, password: await hash(password, 12) })
+                await User.create({ firstname, lastname, city, area, email, password: await hash(password, 12) })
                 // console.log("Success")
     
                 res.status(201).json({
@@ -171,10 +171,10 @@ const getUsersByEmail = async (req, res) => {
 
 //update Users
 const updateUser = async (req, res) => {
-    const { _id,  username} = req.body
+    const { _id,  firstname} = req.body
 
     const filter = { _id };
-    const update = {  username};
+    const update = {  firstname};
 
     try {
         await connect(process.env.MONGO_URL)
