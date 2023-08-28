@@ -29,7 +29,7 @@ const demoMail = async (req, res) => {
             theme: 'default',
             product: {
                 // Appears in header & footer of e-mails
-                name: 'Mailgen Banoqabil',
+                name: 'Lets Shop Pk',
                 link: 'https://mailgen.js/'
             }
         });
@@ -104,7 +104,7 @@ const addOrders = async (req, res) => {
                 theme: 'default',
                 product: {
                     // Appears in header & footer of e-mails
-                    name: 'Mailgen Banoqabil',
+                    name: 'Lets Shop Pk',
                     link: 'https://mailgen.js/'
                 }
             });
@@ -113,12 +113,12 @@ const addOrders = async (req, res) => {
             await transporter.sendMail({
                 from: process.env.NODEMAILER_EMAIL, // sender address
                 to: customerEmail, // list of receivers
-                subject: "Hello ✔", // Subject line
-                text: "Hello world?", // plain text body
+                subject: "Lets Shop Pk", // Subject line
+                text: "Hello customer?", // plain text body
                 html: mailGenerator.generate({
                     body: {
                         name: customerName,
-                        intro: 'Welcome to Rabi Sweets, we ensure best quality sweets at your doorstep',
+                        intro: 'Welcome to Lets ShopPk!, we ensure best quality products at your doorstep',
                         table: {
                             data: [
                                 {
